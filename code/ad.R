@@ -28,30 +28,21 @@ build_ad <- function(number = 1){
                                          pattern = "background"), 1)
   background_slide <- png::readPNG(here::here("media", random_background))
   
-  title_font <- "Roboto Mono" #"Roboto Slab"
-  
   slide <- 
     ggplot() +
     background_image(background_slide) + #put slide background here
     scale_x_continuous(limits = c(0,xmax)) +
     scale_y_continuous(limits = c(0,ymax)) +
-    # annotate("text", 
-    #          x = xmax/2.15, y = ymax/1.8, #title1
-    #          label = title1, 
-    #          hjust = 0.5, 
-    #          color = "white", 
-    #          size = 11, 
-    #          fontface = "bold") +
     annotate("text", 
-             x = xmax/2.15, y = ymax/1.8, #title1
+             # x = xmax/2, y = ymax/1.66, #title1 for centered
+             x = xmax/2.15, y = ymax/1.8, #title1 #1.66 for rightside
              label = title1, 
              hjust = 0.5, 
              color = "white", 
-             size = 9, 
-             #fontface = "bold", 
-             family = title_font) +
+             size = 8, 
+             family = "Roboto Mono") +
     annotate("text", 
-             x = xmax/2, y = ymax/2.7, #title2
+             x = xmax/2, y = ymax/2.8, #title2
              label = title2, 
              hjust = 0.5, 
              color = "white", 
@@ -83,12 +74,20 @@ build_ad <- function(number = 1){
                hjust = 0, 
                vjust = 0, 
                scale = 0.9) +
+    #side
     draw_image(here::here("media", "cct_github_qr.png"), #qr code
-               x = 0.45, 
-               y = 0.0865, 
-               hjust = 0, 
-               vjust = 0, 
+               x = 0.41,
+               y = 0.087,
+               hjust = 0,
+               vjust = 0,
                scale = 0.11) +
+    #centered
+    # draw_image(here::here("media", "cct_github_qr.png"), #qr code
+    #            x = 0, 
+    #            y = -0.025, 
+    #            hjust = 0, 
+    #            vjust = 0, 
+    #            scale = 0.15) +
     NULL
   
   #source(here::here("code", "png.R"))
@@ -112,7 +111,7 @@ build_ad <- function(number = 1){
 # #build 1 ad
 # build_ad()
 
-#build 5 ads
-# for (i in 1:5) {
+#build 10 ads
+# for (i in 1:10) {
 #   build_ad(i)
 # }
