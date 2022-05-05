@@ -5,6 +5,9 @@ library(glue)
 library(cowplot)
 library(ggpubr)
 library(png)
+library(sysfonts)
+
+sysfonts::font_add_google("Roboto Mono", "Roboto Mono")
 
 #build ad-----
 build_ad <- function(number = 1){
@@ -16,26 +19,37 @@ build_ad <- function(number = 1){
   #title
   title1 <- "This ad was generated entirely using code."
   title2 <- "Want to learn how?"
-  title3 <- stringr::str_wrap("Check out in-person and online, synchronous and asynchronous modules to learn coding, data science, machine learning, AI, ethics, privacy, cybersecurity and beyond.", width = 55)
-  
-  cct_url <- "https://computationalthinking.duke.edu"
+  title3 <- stringr::str_wrap("Check out in-person and online, synchronous and asynchronous modules to learn coding, data science, machine learning, AI, ethics, privacy, cybersecurity and more.", width = 55)
+  # title3 <- "Check out in-person and online\nsynchronous and asynchronous modules to\nlearn coding, data science, machine learning, AI, ethics, privacy, cybersecurity\nand more."
+  str_length(title3)
+  cct_url <- "computationalthinking.duke.edu"
   
   random_background <- sample(list.files(here::here("media"), 
                                          pattern = "background"), 1)
   background_slide <- png::readPNG(here::here("media", random_background))
+  
+  title_font <- "Roboto Mono" #"Roboto Slab"
   
   slide <- 
     ggplot() +
     background_image(background_slide) + #put slide background here
     scale_x_continuous(limits = c(0,xmax)) +
     scale_y_continuous(limits = c(0,ymax)) +
+    # annotate("text", 
+    #          x = xmax/2.15, y = ymax/1.8, #title1
+    #          label = title1, 
+    #          hjust = 0.5, 
+    #          color = "white", 
+    #          size = 11, 
+    #          fontface = "bold") +
     annotate("text", 
-             x = xmax/2, y = ymax/1.8, #title1
+             x = xmax/2.15, y = ymax/1.8, #title1
              label = title1, 
              hjust = 0.5, 
              color = "white", 
-             size = 10, 
-             fontface = "bold") +
+             size = 9, 
+             #fontface = "bold", 
+             family = title_font) +
     annotate("text", 
              x = xmax/2, y = ymax/2.7, #title2
              label = title2, 
@@ -71,20 +85,20 @@ build_ad <- function(number = 1){
                scale = 0.9) +
     draw_image(here::here("media", "cct_github_qr.png"), #qr code
                x = 0.45, 
-               y = 0.05, 
+               y = 0.0865, 
                hjust = 0, 
                vjust = 0, 
-               scale = 0.1) +
+               scale = 0.11) +
     NULL
   
   #source(here::here("code", "png.R"))
   
-  image_name <- glue::glue( "cct_ad{number}.pdf")
+  image_name <- glue::glue( "cct_ad{number}.jpg")
   image_path <- here::here("data", image_name)
   
   ggsave(filename = image_path, 
          plot = plot_complete, 
-         device = "pdf", 
+         device = "jpg",
          width = 10, 
          height = 6.875, 
          units = "in",
@@ -98,7 +112,7 @@ build_ad <- function(number = 1){
 # #build 1 ad
 # build_ad()
 
-# #build 5 ads
+#build 5 ads
 # for (i in 1:5) {
 #   build_ad(i)
 # }

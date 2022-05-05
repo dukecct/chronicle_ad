@@ -1,6 +1,6 @@
 # Chronicle Ad
   
-![](data/cct_ad.png)  
+![](data/cct_ad1.jpg)  
   
 This repository contains a script to generate the [Center for Computational Thinking's](http://computationalthinking.duke.edu) Chronicle ad mailer.  
   
